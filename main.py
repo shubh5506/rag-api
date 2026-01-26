@@ -23,6 +23,11 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",  # Vite
         "http://localhost:3000",  # Next.js
+
+        "https://shubhamsarpal.com/",
+        "https://www.shubhamsarpal.com",
+
+        "https://my-app-production-0a84.up.railway.app/",
     ],
     allow_credentials=True,
     allow_methods=["*"],
