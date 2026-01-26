@@ -17,22 +17,22 @@ from rag.utils import clean_text
 
 app = FastAPI(title="Portfolio RAG API", version="1.0.0")
 
-# ✅ IMPORTANT: Update this to match your UI domain(s)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",  # Vite
-        "http://localhost:3000",  # Next.js
+        "http://localhost:5173",
+        "http://localhost:3000",
 
-        "https://shubhamsarpal.com/",
+        "https://shubhamsarpal.com",
         "https://www.shubhamsarpal.com",
 
-        "https://my-app-production-0a84.up.railway.app/",
+        "https://my-app-production-0a84.up.railway.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 UPLOAD_DIR = Path("./uploads")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
