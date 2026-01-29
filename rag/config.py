@@ -8,7 +8,7 @@ class Settings(BaseModel):
     openai_api_key: str = os.getenv("OPENAI_API_KEY")
     openai_model: str = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 
-    chroma_dir: str = os.getenv("CHROMA_DIR", "./chroma_db")
+    chroma_dir: str = os.getenv("CHROMA_DIR", "./chroma_db_v2")
     collection_name: str = os.getenv("COLLECTION_NAME", "portfolio_docs")
     embedding_model: str = os.getenv("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
 
