@@ -72,7 +72,7 @@ if __name__ == "__main__":
     text = extract_text_from_pdf(pdf_path)
     print("✅ Extracted characters:", len(text))
     print("\n--- First 500 chars of PDF text ---\n")
-    print(text[:500])
+    print(text[:2000])
 
     # Build chunks
     chunks, metadatas = build_chunks_by_page(pdf_path)
@@ -81,7 +81,7 @@ if __name__ == "__main__":
 
     if len(chunks) > 0:
         print("\n--- First chunk preview ---\n")
-        print(chunks[0][:500])
+        print(chunks[0][:20000])
 
         print("\n--- First chunk metadata ---\n")
         print(metadatas[0])

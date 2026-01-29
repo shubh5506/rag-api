@@ -72,6 +72,7 @@ def build_citations(docs: List[str], metas: List[Dict[str, Any]], ids: List[str]
 
 if __name__ == "__main__":
     print("Starting Chroma test...")
+    
 
     col = get_collection()
     print("Collection loaded:", col.name)
@@ -83,7 +84,11 @@ if __name__ == "__main__":
         ["test1"]
     )
 
+
     docs, metas, ids, distances = similarity_search("What do you build?", top_k=1)
+
+   
+   
 
 # print("\n Top result:", docs[0])
 # print("ID:", ids[0])
