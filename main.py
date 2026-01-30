@@ -44,36 +44,36 @@ def health():
     return {"ok": True, "collection": settings.collection_name}
 
 
-# @app.post("/ingest")
-# async def ingest(files: List[UploadFile] = File(...)):
-#     indexed_files = 0
-#     total_chunks = 0
+@app.post("/ingest")
+async def ingest(files: List[UploadFile] = File(...)):
+    indexed_files = 0
+    total_chunks = 0
 
-#     for f in files:
-#         ext = Path(f.filename).suffix.lower()
+    for f in files:
+        ext = Path(f.filename).suffix.lower()
 
-#         # ✅ Only allow supported files (PDF)
-#         if ext not in SUPPORTED_EXT:
-#             continue
+        # ✅ Only allow supported files (PDF)
+        if ext not in SUPPORTED_EXT:
+            continue
 
-#         file_id = str(uuid.uuid4())[:8]
-#         dest = UPLOAD_DIR / f"{file_id}_{Path(f.filename).name}"
-#         dest.write_bytes(await f.read())
+        file_id = str(uuid.uuid4())[:8]
+        dest = UPLOAD_DIR / f"{file_id}_{Path(f.filename).name}"
+        dest.write_bytes(await f.read())
 
-#         chunks, metadatas = build_chunks_for_file(dest)
+        chunks, metadatas = build_chunks_for_file(dest)
 
-#         if not chunks:
-#             continue
+        if not chunks:
+            continue
 
-#         ids = [f"{dest.name}::chunk::{i}" for i in range(len(chunks))]
-#         total_chunks += add_documents(chunks, metadatas, ids)
-#         indexed_files += 1
+        ids = [f"{dest.name}::chunk::{i}" for i in range(len(chunks))]
+        total_chunks += add_documents(chunks, metadatas, ids)
+        indexed_files += 1
 
-#     return {
-#         "indexed_files": indexed_files,
-#         "chunks_added": total_chunks,
-#         "collection_name": settings.collection_name,
-#     }
+    return {
+        "indexed_files": indexed_files,
+        "chunks_added": total_chunks,
+        "collection_name": settings.collection_name,
+    }
 
 
 def build_context_block(docs: List[str], metas: List[Dict[str, Any]]) -> str:
