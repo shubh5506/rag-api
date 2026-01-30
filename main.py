@@ -40,8 +40,7 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 @app.get("/health")
 def health():
-    _ = get_collection()
-    return {"ok": True, "collection": settings.collection_name}
+    return {"status": "ok"}
 
 
 @app.post("/ingest")

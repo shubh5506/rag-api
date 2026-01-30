@@ -1,10 +1,10 @@
 from typing import List, Dict, Any
 import chromadb
-from chromadb.config import Settings as ChromaSettings
 from sentence_transformers import SentenceTransformer
-
+from chromadb.config import Settings
 from .config import settings
 from .utils import safe_snipet
+from pathlib import Path
 
 _client = None
 _collection = None
@@ -18,17 +18,32 @@ def get_embedder() -> SentenceTransformer:
     return _embedder
 
 
+_client = None
+_collection = None
+
+
 def get_collection():
     global _client, _collection
+
     if _collection is not None:
         return _collection
 
-    _client = chromadb.PersistentClient(
-        path=settings.chroma_dir,
-        settings=ChromaSettings(anonymized_telemetry=False),
+    # ✅ Railway-safe directory
+    persist_dir = "/tmp/chroma"
+    Path(persist_dir).mkdir(parents=True, exist_ok=True)
+
+    # ✅ THIS IS THE FIX
+    _client = chromadb.Client(
+        Settings(
+            anonymized_telemetry=False,   # 🔥 REQUIRED
+            persist_directory=persist_dir # 🔥 REQUIRED on Railway
+        )
     )
 
-    _collection = _client.get_or_create_collection(name=settings.collection_name)
+    _collection = _client.get_or_create_collection(
+        name=settings.collection_name
+    )
+
     return _collection
 
 
