@@ -43,7 +43,7 @@ def health():
     return {"status": "ok"}
 
 
-@app.post("/ingest")
+@app.post("/ingest", include_in_schema=False)
 async def ingest(files: List[UploadFile] = File(...)):
     indexed_files = 0
     total_chunks = 0
